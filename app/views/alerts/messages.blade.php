@@ -9,7 +9,7 @@
             <div class="clearfix">
                 <strong>{{$u->last_name.", ".$u->first_name}}</strong>
                 <span class="pull-right text-muted">
-                    <em>{{$ml->created_at}}</em>
+                    <em>{{$mr->created_at}}</em>
                 </span>
             </div> 
             <div>{{$ml->body}}</div>

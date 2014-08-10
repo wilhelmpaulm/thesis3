@@ -1,4 +1,4 @@
-<?php // $agents = User::where("division", "=", Auth::user()->division)->where("job_title", "!=", "Secretary")->where("status", "=", "Active")->get();      ?>
+<?php // $agents = User::where("division", "=", Auth::user()->division)->where("job_title", "!=", "Secretary")->where("status", "=", "Active")->get();       ?>
 <?php $date = new DateTime() ?>
 
 <?php
@@ -73,7 +73,7 @@ foreach ($alist as $al) {
     $onhand = 0;
     foreach ($agents as $aa) {
 
-        if ($aa->user_id == $a->id)
+        if ($aa->user_id == $a->id) {
             if ($aa->date_approved != "") {
                 $approved++;
 
@@ -94,8 +94,9 @@ foreach ($alist as $al) {
                     }
                 }
             }
-        if ($aa->date_approved == "") {
-            $pending++;
+            if ($aa->status == "Pending") {
+                $pending++;
+            }
         }
     }
 
@@ -132,15 +133,15 @@ foreach ($alist as $al) {
                 <button class="btn btn-default sort" type="button" data-sort="list_name">
                     <i class="fa fa-sort-alpha-asc"></i>
                 </button>
-                <button class="btn btn-success sort" type="button" data-sort="list_csr">
-                    <i class="fa fa-sort"></i>
-                </button>
-                <button class="btn btn-warning sort" type="button" data-sort="list_cla">
-                    <i class="fa fa-sort"></i>
-                </button>
-                <button class="btn btn-primary sort" type="button" data-sort="list_r">
-                    <i class="fa fa-sort"></i>
-                </button>
+                <!--                <button class="btn btn-success sort" type="button" data-sort="list_csr">
+                                    <i class="fa fa-sort"></i>
+                                </button>
+                                <button class="btn btn-warning sort" type="button" data-sort="list_cla">
+                                    <i class="fa fa-sort"></i>
+                                </button>
+                                <button class="btn btn-primary sort" type="button" data-sort="list_r">
+                                    <i class="fa fa-sort"></i>
+                                </button>-->
             </span>
 
         </div>
@@ -152,9 +153,9 @@ foreach ($alist as $al) {
             <?php // usort($coll, "sortSummary");    ?>
             @foreach($coll as $c)
             <?php $a = User::find($c[0]); ?>
-            <li><a  id="" class="list-group-item c_link">
+            <li><a  id="" class="list-group-item c_link" data-toggle="modal" data-target="#agent_{{$a->id}}">
                     <div class="row">
-                        <div class="col-lg-5">
+                        <div class="col-lg-4">
                             <img src="{{URL::asset('nbi/agent/picture/'.$a->file_picture)}}" width="100%" class="img img-thumbnail">
                             <hr>  
                             <div style="overflow-x: auto; overflow-y: hidden">
@@ -162,34 +163,59 @@ foreach ($alist as $al) {
                                 <p class="label label-default list_details">{{$a->job_title}}</p>
                             </div>
                         </div>
-                        <div class="col-lg-7">
+                        <div class="col-lg-8">
                             <table class="table table-bordered table-condensed">
                                 <tbody>
                                     <tr>
-                                        <td colspan="2">
+                                        <td colspan="4">
                                             <p class="list-group-item-heading list_name "><strong>{{$a->last_name.", ".$a->first_name}}</strong></p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p><small>Case Success Ratio</small></p>
+                                            <p>Late</p>
                                         </td>
                                         <td>
-                                            <p class="label label-success list_csr"> %</p>
+                                            <p>{{$c[2]}}</p>
+                                        </td>
+                                        <td>
+                                            <p>On time</p>
+                                        </td>
+                                        <td>
+                                            <p>{{$c[3]}}</p>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>Early</p>
+                                        </td>
+                                        <td>
+                                            <p>{{$c[4]}}</p>
+                                        </td>
+                                        <td>
+                                            <p>Pending</p>
+                                        </td>
+                                        <td>
+                                            <p>{{$c[5]}}</p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p><small>Case Load Average</small></p>
-
-
+                                            <p>Approved</p>
                                         </td>
                                         <td>
-                                            <p class="label label-warning list_cla">{{$c[0]}}</p>
-
+                                            <p>{{$c[6]}}</p>
+                                        </td>
+                                        <td>
+                                            <p>On hand</p>
+                                        </td>
+                                        <td>
+                                            <p>{{$c[7]}}</p>
                                         </td>
                                     </tr>
-                                    
+
+
                                 </tbody>
                             </table>
 
@@ -207,27 +233,70 @@ foreach ($alist as $al) {
 
 
 <!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+<!--<button class="btn btn-primary btn-lg" >
     Launch demo modal
-</button>
+</button>-->
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+@foreach($alist as $al)
+<?php
+//    $rhs = DB::select("select * from resource_histories left join resources on "
+//            . "resources.id = resource_histories.resource_id where resource_histories.user_id = ?", [$al])
+$rhs = DB::select("select * from resource_histories  where resource_histories.user_id = ?", [$al])
+?>
+<div class="modal container fade" id="agent_{{$al}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            <h4 class="modal-title" id="myModalLabel">Agent Resource History</h4>
         </div>
         <div class="modal-body">
-            ...
+            <table class="dtable table table-bordered table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Resource</th>
+                        <th>Status</th>
+                        <th>Division</th>
+                        <th>Date Requested</th>
+                        <th>Date Approved</th>
+                        <th>Date Issued</th>
+                        <th>Date Due</th>
+                        <th>Date Returned</th>
+                        <th>Case</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($rhs as $rh)
+                    <?php $r = Resource::find($rh->resource_id); ?>
+                    <tr>
+                        <td>{{$rh->id}}</td>
+                        <td><p><small>{{$r->name}}- {{$r->details}}</small></p></td>
+                        <td>{{$rh->status}}</td>
+                        <td>{{$r->division}}</td>
+                        <td>{{$rh->date_requested}}</td>
+                        <td>{{$rh->date_approved}}</td>
+                        <td>{{$rh->date_issued}}</td>
+                        <td>{{$rh->date_due}}</td>
+                        <td>{{$rh->date_returned}}</td>
+                        <td >{{$rh->case_id}}</td>
+                        <td><p><small>{{$rh->details}}</small></p></td>
+                    </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <span class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </span>
         </div>
     </div><!-- /.modal-content -->
 </div><!-- /.modal -->
-
+@endforeach
 
 
 
@@ -252,7 +321,7 @@ foreach ($alist as $al) {
 
     var agentList = new List('agent_list', options);
 
-
+    $(".dtable").dataTable();
 </script>
 
 
