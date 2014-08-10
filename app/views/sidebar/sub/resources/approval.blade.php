@@ -274,6 +274,8 @@
 
 @foreach($resources as $r)
 <?php
+$agents = DB::select("select * from users join resource_histories on users.id = resource_histories.user_id "
+        . "where resource_histories.resource_id = ?",[$r->id]);
 $rhs = Resource_history::where("resource_id", "=", $r->id)->where("status", "=", "Pending")->get();
 $rha = Resource_history::where("resource_id", "=", $r->id)->where("status", "=", "Approved")->get();
 $rhs_copy = $rhs->toArray();
@@ -295,7 +297,8 @@ $rhs_copy = $rhs->toArray();
                     <p class="label label-info">{{$r->status}}</p>
                     <p class="label label-default">{{$r->division}}</p>
                     <hr>
-
+                    @include("sidebar.sub.resources.agents")
+                   
                 </div>
                 <div class="col-md-8" >
                       <br>
