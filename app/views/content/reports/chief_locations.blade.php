@@ -144,7 +144,7 @@ if (Input::get("type") != null && Input::get("status") != null && Input::get("lo
                     @foreach($case_types as $c)
                     <?php $case_ad = Case_address::find($c->case_id); ?>
                     <?php $case = Kase::where("id", "=", $c->case_id)->whereIn("status", $case_status_get)->first(); ?>
-                    @if($case != null)
+                    @if($case != null && $case_ad != null)
                     @if($case_ad->city == $l && $case->date_assigned >= $date1 && $case->date_assigned <= $date2)
                     <?php $cnum++; ?>
                     @endif

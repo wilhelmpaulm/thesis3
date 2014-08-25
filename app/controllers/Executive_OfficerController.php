@@ -22,12 +22,13 @@ class Executive_OfficerController extends BaseController {
         $u = User::find(Auth::user()->id);
         $u->memo = Input::get("memo");
         $u->save();
-        System_logsController::createLog(Auth::user()->id, 0, $u->id, "updated notepad", "users");
+        System_logsController::createLog(Auth::user()->id, 0, $u->id, "has updated notepad", "users");
         return Redirect::back();
     }
 
     public function getIndex() {
-        return View::make("content.test");
+//        return View::make("content.test");
+            return Redirect::to("executive_officer/dashboard");
 //        return Redirect::to("agent/dashboard");
     }
 

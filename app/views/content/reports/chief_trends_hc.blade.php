@@ -1,6 +1,7 @@
 <?php
-$all_cases = Kase::orderBy("date_reported", "desc")->take(200)->get();
-$all_case_types = Case_type_tag::all()->take(5);
+$all_cases = Kase::orderBy("date_reported", "desc")->take(25)->get();
+//$all_case_types = Case_type_tag::all()->take(5);
+$all_case_types = Case_type_tag::all();
 $dates = [];
 $cases = [];
 $case_types = [];
@@ -10,12 +11,16 @@ $case_types = [];
 //        array_push($dates, $ac->date_reported);
 //    }
 //}
-foreach ($all_case_types as $act) {
-    if (!in_array($act->type, $case_types)) {
-        array_push($case_types, $act->type);
-    }
-     if (!in_array($act->case_id, $cases)) {
-        array_push($cases, $act->case_id);
+
+foreach($all_cases as $acc){
+    $cttt = Case_type_tag::where("case_id", "=" , $acc->id)->get();
+    foreach ($cttt as $act) {
+        if (!in_array($act->type, $case_types)) {
+            array_push($case_types, $act->type);
+        }
+         if (!in_array($act->case_id, $cases)) {
+            array_push($cases, $act->case_id);
+        }
     }
 }
 

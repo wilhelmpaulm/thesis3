@@ -31,7 +31,7 @@ class KasesController extends BaseController {
             
             
             $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-            System_logsController::createLog($chief->id, $case->id, $case->id, Auth::user()->id . " edited details of the case " . $case->id, "kases");
+            System_logsController::createLog($chief->id, $case->id, $case->id, "Edited details of the case " . $case->id, "kases");
         }
         return Redirect::back();
     }
@@ -47,7 +47,7 @@ class KasesController extends BaseController {
 
 
             $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-            System_logsController::createLog($chief->id, $case->id, $case->id, Auth::user()->id . " closed case " . $case->id, "kases");
+            System_logsController::createLog($chief->id, $case->id, $case->id, "has closed case " . $case->id, "kases");
 
             return Redirect::to(strtolower(Auth::user()->job_title) . "/cases-ongoing");
         }
@@ -73,7 +73,7 @@ class KasesController extends BaseController {
                     "type" => Input::get("type")[$index]
                 ]);
             }
-            System_logsController::createLog($case->agent_id, $case->id, $case->id, Auth::user()->id . " assigned case " . $case->id, "kases");
+            System_logsController::createLog($case->agent_id, $case->id, $case->id, "has assigned case " . $case->id, "kases");
             return Redirect::to(strtolower(Auth::user()->job_title) . "/cases-ongoing");
         }
         return Redirect::to(strtolower(Auth::user()->job_title) . "/cases-assign");
@@ -98,7 +98,7 @@ class KasesController extends BaseController {
 
 
 
-            System_logsController::createLog($case->agent_id, $case->id, $case->id, Auth::user()->id . " reopened case " . $case->id, "kases");
+            System_logsController::createLog($case->agent_id, $case->id, $case->id, "has reopened case " . $case->id, "kases");
             return Redirect::to(strtolower(Auth::user()->job_title) . "/cases-closed");
         }
         return Redirect::back();
@@ -111,7 +111,7 @@ class KasesController extends BaseController {
         $case->save();
 
 
-        System_logsController::createLog($case->agent_id, $case->id, $case->id, Auth::user()->id . " assigned case " . $case->id. "to you", "kases");
+        System_logsController::createLog($case->agent_id, $case->id, $case->id, "has assigned case " . $case->id. "to you", "kases");
         return Redirect::to(strtolower(Auth::user()->job_title) . "/cases-assign");
     }
     
@@ -123,7 +123,7 @@ class KasesController extends BaseController {
         $case->save();
 
 
-        System_logsController::createLog($case->agent_id, $case->id, $case->id, Auth::user()->id . " changed case variable" . $case->id, "kases");
+        System_logsController::createLog($case->agent_id, $case->id, $case->id, "has changed case variable of case " . $case->id, "kases");
         return Redirect::back();
 //        return Redirect::to(strtolower(Auth::user()->job_title) . "/cases-assign");
     }

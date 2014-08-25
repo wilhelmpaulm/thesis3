@@ -31,7 +31,7 @@ class Evidence_documentsController extends BaseController {
 
 
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, Auth::user()->id . " uploaded document " . $evidence->id . "to " . $evidence->case_id, "evidence_odocuments");
+        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, "has uploaded document " . $evidence->id . " to case " . $evidence->case_id, "evidence_odocuments");
 
         return Redirect::back();
     }
@@ -90,7 +90,7 @@ class Evidence_documentsController extends BaseController {
         $case_evidence->save();
 
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, Auth::user()->id . " updated document " . $evidence->id . "from " . $evidence->case_id, "evidence_odocuments");
+        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, "has updated document " . $evidence->id . " from case " . $evidence->case_id, "evidence_odocuments");
 
 
         return Redirect::back();
@@ -110,7 +110,7 @@ class Evidence_documentsController extends BaseController {
         $evidence = Evidence_document::find($id);
 
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, Auth::user()->id . " deleted document " . $evidence->id . "from " . $evidence->case_id, "evidence_odocuments");
+        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, "has deleted document " . $evidence->id . " from case " . $evidence->case_id, "evidence_odocuments");
         $evidence->delete();
 
         return Redirect::back();

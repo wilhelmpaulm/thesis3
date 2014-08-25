@@ -5,14 +5,8 @@ $user = Auth::user();
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="wilhelm paul martinezz">
-        <link rel="shortcut icon" href="{{URL::asset('apple-touch-icon-144.png')}}">
-        <!--&#128269;-->
-        <title>SHERLOCK</title>
+        <meta charset="UTF-8">
+        <title>Sherlock</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
         <style>
@@ -124,7 +118,7 @@ $user = Auth::user();
 
         {{HTML::script("js/jquery.js")}}
         {{HTML::script("js/raphael.js")}}
-        
+        {{HTML::script("LTE/js/AdminLTE/app.js")}}
         {{HTML::script("js/sketch.js")}}
         {{HTML::script("js/morris.js")}}
         {{HTML::script("js/moment.js")}}
@@ -151,6 +145,8 @@ $user = Auth::user();
         {{HTML::script("js/highcharts/highcharts.js")}}
         {{HTML::script("js/highcharts/modules/data.js")}}
         {{HTML::script("js/highcharts/modules/exporting.js")}}
+        {{HTML::script("js/signaturepad.min.js")}}
+        {{HTML::script("sig/json2.min.js")}}
         <!--<link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" />-->
         <!-- font Awesome -->
         <!--<link href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css" />-->
@@ -374,7 +370,7 @@ $user = Auth::user();
                     $("#notifNum").text(data);
                     $("#notifSpan").addClass("c-alizarin");
                 } else {
-//                    console.log(data);
+                    console.log(data);
                     $("#notifNum").text("");
                     $("#notifSpan").removeClass("c-alizarin");
                 }
@@ -385,7 +381,7 @@ $user = Auth::user();
             setInterval(function() {
                 $.get("{{URL::to('notifications-num')}}", function(data) {
                     if (data > 0) {
-//                        console.log(data);
+                        console.log(data);
                         $("#notifNum").text(data);
                         $("#notifSpan").addClass("c-alizarin");
                     } else {
@@ -402,7 +398,11 @@ $user = Auth::user();
 //            $(".panel-heading").addClass("f-osb");
 
         </script>
-   
-        {{HTML::script("LTE/js/AdminLTE/app.js")}}
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>-->
+        <!-- Bootstrap -->
+        <!--<script src="../../js/bootstrap.min.js" type="text/javascript"></script>-->
+        <!-- AdminLTE App -->
+        <!--<script src="../../js/AdminLTE/app.js" type="text/javascript"></script>-->
+
     </body>
 </html>

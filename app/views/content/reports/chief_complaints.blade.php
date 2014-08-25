@@ -88,7 +88,7 @@ if(Input::get("type")!= null){
     <script>
 
 
-        console.log("this is shoot");</script>
+//        console.log("this is shoot");</script>
 
 
 
@@ -141,10 +141,10 @@ if(Input::get("type")!= null){
                 .attr('width', width)
                 .attr('height', height)
                 .call(chart2);
-        chart.dispatch.on('stateChange', function(e) {
+        chart2.dispatch.on('stateChange', function(e) {
             nv.log('New State:', JSON.stringify(e));
         });
-                return chart;
+                return chart2;
         });
                 //$("#types10930191").show();
     </script>

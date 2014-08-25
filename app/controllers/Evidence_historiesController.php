@@ -23,7 +23,7 @@ class Evidence_historiesController extends BaseController {
         ]);
         
            $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-       System_logsController::createLog($chief->id, Kase::find(Case_evidence::where("type", "=", $history->type)->where("evidence_id", "=", $history->evidence_id)->first()->case_id)->id, $history->id, Auth::user()->id . " Added evidence history of " . $history->id, "evidence_histories");
+       System_logsController::createLog($chief->id, Kase::find(Case_evidence::where("type", "=", $history->type)->where("evidence_id", "=", $history->evidence_id)->first()->case_id)->id, $history->id, "has added evidence history of " . $history->id, "evidence_histories");
 
         return Redirect::back();
     }
@@ -45,7 +45,7 @@ class Evidence_historiesController extends BaseController {
         $history->details = Input::get("details");
         $history->save();
              $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, Kase::find(Case_evidence::where("type", "=", $history->type)->where("evidence_id", "=", $history->evidence_id)->first()->case_id)->id, $history->id, Auth::user()->id . " Updated evidence history of " . $history->id, "evidence_histories");
+        System_logsController::createLog($chief->id, Kase::find(Case_evidence::where("type", "=", $history->type)->where("evidence_id", "=", $history->evidence_id)->first()->case_id)->id, $history->id, "has updated evidence history of " . $history->id, "evidence_histories");
 
         return Redirect::back();
     }
@@ -53,7 +53,7 @@ class Evidence_historiesController extends BaseController {
     public function postDestroy($id = null) {
         $history = Evidence_history::find($id);
              $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, Kase::find(Case_evidence::where("type", "=", $history->type)->where("evidence_id", "=", $history->evidence_id)->first()->case_id)->id, $history->id, Auth::user()->id . " Deleted evidence history of " . $history->id, "evidence_histories");
+        System_logsController::createLog($chief->id, Kase::find(Case_evidence::where("type", "=", $history->type)->where("evidence_id", "=", $history->evidence_id)->first()->case_id)->id, $history->id, "has deleted evidence history of " . $history->id, "evidence_histories");
         $history->delete();
         return Redirect::back();
     }

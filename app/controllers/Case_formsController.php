@@ -28,7 +28,7 @@ class Case_formsController extends BaseController {
             $key->reason = Input::get("reson");
             $key->status = Input::get("status");
             $key->save();
-            System_logsController::createLog(Auth::user()->id, $key->case_id, $key->id, Auth::user()->id . " updated form status of " . $key->case_id . " to " . Input::get("status"), "case_keys");
+            System_logsController::createLog(Auth::user()->id, $key->case_id, $key->id, "has updated form status of " . $key->case_id . " to " . Input::get("status"), "case_keys");
         }
         return Redirect::back();
     }
@@ -37,7 +37,7 @@ class Case_formsController extends BaseController {
         $key = Case_key::find($id);
 
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $key->case_id, $key->id, Auth::user()->id . " deleted case key from " . $key->case_id, "case_keys");
+        System_logsController::createLog($chief->id, $key->case_id, $key->id, "has deleted case key from " . $key->case_id, "case_keys");
 
 
         $key->delete();

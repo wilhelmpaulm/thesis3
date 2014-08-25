@@ -18,7 +18,7 @@ class TasksController extends BaseController {
                     "date_start" => Input::get("date_start"),
                     "date_end" => Input::get("date_end"),
         ]);
-        System_logsController::createLog(Auth::user()->id, 0, $task->id, "created a task for ".Input::get('date_start'), "tasks");
+        System_logsController::createLog(Auth::user()->id, 0, $task->id, "has created a task for ".Input::get('date_start'), "tasks");
 
         return Redirect::to("agent/calendar");
     }
@@ -34,7 +34,7 @@ class TasksController extends BaseController {
                     "case_id" => Input::get("case_id"),
                     "status" => "Pending",
         ]);
-        System_logsController::createLog(Auth::user()->id, 0, $task->id, "created a task for ".Input::get('date_start'), "tasks");
+        System_logsController::createLog(Auth::user()->id, 0, $task->id, "has created a task for ".Input::get('date_start'), "tasks");
 
         return Redirect::back();
     }
@@ -58,7 +58,7 @@ class TasksController extends BaseController {
         $task->date_end = Input::get("date_end");
         $task->save();
         
-        System_logsController::createLog(Auth::user()->id, 0, $task->id, "updated task ".$id, "tasks");
+        System_logsController::createLog(Auth::user()->id, 0, $task->id, "has updated task ".$id, "tasks");
         return Redirect::to("agent/calendar");
     }
     public function postUpdateCase($id = null) {
@@ -71,13 +71,13 @@ class TasksController extends BaseController {
         $task->priority = Input::get("priority");
         $task->save();
         
-        System_logsController::createLog(Auth::user()->id, 0, $task->id, "updated task ".$id, "tasks");
+        System_logsController::createLog(Auth::user()->id, 0, $task->id, "has updated task ".$id, "tasks");
         return Redirect::back();
     }
 
     public function postDestroy($id = null) {
         $task = Task::find($id);
-        System_logsController::createLog(Auth::user()->id, 0, $task->id, "deleted task ".$id, "tasks");
+        System_logsController::createLog(Auth::user()->id, 0, $task->id, "has deleted task ".$id, "tasks");
         $task->delete();
         return Redirect::to("agent/calendar");
     }

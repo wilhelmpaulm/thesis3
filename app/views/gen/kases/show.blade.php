@@ -163,6 +163,10 @@ foreach ($case_type_tags as $ctt) {
 
                                 <tbody>
                                     <tr>
+                                        <td><strong>Status</strong></th>
+                                        <td>{{$case->status}}</th>
+                                    </tr>  
+                                    <tr>
                                         <td><strong>Date Assigned</strong></th>
                                         <td>{{$case->date_reported}}</th>
                                     </tr>  

@@ -19,7 +19,7 @@ class Case_keysController extends BaseController {
         
         
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $key->case_id, $key->id, Auth::user()->id . " created case key for " . $key->case_id, "case_keys");
+        System_logsController::createLog($chief->id, $key->case_id, $key->id, "has created case key for " . $key->case_id, "case_keys");
  
         
         return Redirect::back();
@@ -41,7 +41,7 @@ class Case_keysController extends BaseController {
         $key->save();
         
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $key->case_id, $key->id, Auth::user()->id . " updated case key of " . $key->case_id, "case_keys");
+        System_logsController::createLog($chief->id, $key->case_id, $key->id, "has updated case key of " . $key->case_id, "case_keys");
 
         
         return Redirect::back();
@@ -52,7 +52,7 @@ class Case_keysController extends BaseController {
         $key = Case_key::find($id);
         
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $key->case_id, $key->id, Auth::user()->id . " deleted case key from " . $key->case_id, "case_keys");
+        System_logsController::createLog($chief->id, $key->case_id, $key->id, "has deleted case key from " . $key->case_id, "case_keys");
 
         
         $key->delete();

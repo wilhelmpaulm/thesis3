@@ -16,7 +16,7 @@ class SecretaryController extends BaseController {
 
     public function getIndex() {
 //        return View::make("content.test");
-//        return Redirect::to("agent/dashboard");
+        return Redirect::to("secretary/dashboard");
     }
 
     public function getDashboard($num = NULL) {

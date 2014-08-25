@@ -179,10 +179,10 @@ class ComplaintsController extends BaseController {
         }
 
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, 0, $complaint->id, Auth::user()->id . " added complaint " . $complaint->id, "complaints");
+        System_logsController::createLog($chief->id, 0, $complaint->id, "has added complaint " . $complaint->id, "complaints");
 
-
-        return Redirect::to("agent/dashboard");
+        
+        return Redirect::to(strtolower(Auth::user()->job_title)."/dashboard");
     }
 
     public function getSignature($id = null) {
@@ -263,10 +263,10 @@ class ComplaintsController extends BaseController {
 
 
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, 0, $c->id, Auth::user()->id . " added complaint " . $c->id, "complaints");
+        System_logsController::createLog($chief->id, 0, $c->id, "has added case " . $c->id, "complaints");
 
 
-        return Redirect::back();
+       return Redirect::to(strtolower(Auth::user()->job_title)."/dashboard");
 //        var_dump($_POST);
     }
 

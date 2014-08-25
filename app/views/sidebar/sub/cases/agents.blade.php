@@ -686,7 +686,7 @@ foreach ($agents as $a) {
                                 @foreach($coll as $co)
 <?php $a = User::find($co[0]) ?>
                                 <tr>
-                                    <td>{{$a->last_name}}</td>
+                                    <td><a data-toggle="modal" data-target="#agent_details_{{$a->id}}">{{$a->last_name}}</a></td>
                                     <td>{{$co[3]}}</td>
                                     <td>{{$co[4]}}</td>
                                     <td>{{$co[1]}}</td>
@@ -715,7 +715,7 @@ foreach ($agents as $a) {
                                 @foreach($coll as $co)
 <?php $a = User::find($co[0]) ?>
                                 <tr>
-                                    <td>{{$a->last_name}}</td>
+                                    <td><a data-toggle="modal" data-target="#agent_details_{{$a->id}}">{{$a->last_name}}</a></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

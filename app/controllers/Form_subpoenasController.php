@@ -30,7 +30,7 @@ class Form_subpoenasController extends BaseController {
         ]);
 
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $form->case_id, $form->id, Auth::user()->id . " created form " . $form->id . "for " . $form->case_id, "form_subpoenas");
+        System_logsController::createLog($chief->id, $form->case_id, $form->id, "has created form " . $form->id . " for case " . $form->case_id, "form_subpoenas");
 
         return Redirect::to(strtolower(Auth::user()->job_title) . "/cases-ongoing/" . Input::get("case_id"));
     }
@@ -56,7 +56,7 @@ class Form_subpoenasController extends BaseController {
         $case_form = Case_from::where("form_id", "=", $id)->where("form_type", "=", "Subpoena")->get();
         
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $form->case_id, $form->id, Auth::user()->id . " deleted form " . $form->id . "for " . $form->case_id, "form_subpoenas");
+        System_logsController::createLog($chief->id, $form->case_id, $form->id, "has deleted form " . $form->id . " from case " . $form->case_id, "form_subpoenas");
         
         $form->delete();
         $case_form->delete();

@@ -28,7 +28,7 @@ class AppointmentsController extends BaseController {
                         "appointment_id" => $appointment->id,
                         "user_id" => Input::get("recipient_id")[$index]
             ]);
-            System_logsController::createLog(Input::get("recipient_id")[$index], 0, $appointment->id, Auth::user()->id . " created an appointment - " . Input::get('title'), "appointments");
+            System_logsController::createLog(Input::get("recipient_id")[$index], 0, $appointment->id, "has created an appointment - " . Input::get('title'), "appointments");
         }
 
         return Redirect::to(strtolower(Auth::user()->job_title) . "/calendar");
@@ -60,7 +60,7 @@ class AppointmentsController extends BaseController {
                         "appointment_id" => $task->id,
                         "user_id" => Input::get("recipient_id")[$index]
             ]);
-            System_logsController::createLog(Input::get("recipient_id")[$index], 0, $task->id, Auth::user()->id . " updated appointment - " . Input::get('title'), "appointments");
+            System_logsController::createLog(Input::get("recipient_id")[$index], 0, $task->id, "has updated appointment - " . Input::get('title'), "appointments");
         }
 
 
@@ -72,7 +72,7 @@ class AppointmentsController extends BaseController {
         $ar = Appointment_recipient::where("appointment_id", "=", $task->id)->delete();
         $ar = Appointment_recipient::where("appointment_id", "=", $task->id)->get();
         foreach ($ar as $r) {
-            System_logsController::createLog($r->user_id, 0, $task->id, Auth::user()->id . " closed appointment ", "appointments");
+            System_logsController::createLog($r->user_id, 0, $task->id, "has closed appointment ", "appointments");
         }
         $task->delete();
         return Redirect::to(strtolower(Auth::user()->job_title) . "/calendar");
@@ -83,7 +83,7 @@ class AppointmentsController extends BaseController {
         $invite = Appointment_recipient::where("user_id", "=", Auth::user()->id)->where("appointment_id", "=", $id)->first();
         $invite->delete();
 
-        System_logsController::createLog($task->user_id, 0, $task->id, Auth::user()->id . " has rejected invitation to the appointment", "appointments");
+        System_logsController::createLog($task->user_id, 0, $task->id, "has rejected invitation to the appointment", "appointments");
         
         return Redirect::to(strtolower(Auth::user()->job_title) . "/calendar");
     }

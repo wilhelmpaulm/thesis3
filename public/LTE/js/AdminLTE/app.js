@@ -475,84 +475,84 @@ $(window).load(function() {
         }) : "object" == typeof exports ? module.exports = Pace : C.startOnPageLoad && Pace.start()
     }).call(this);
 });
-
-/* 
- * BOX REFRESH BUTTON 
- * ------------------
- * This is a custom plugin to use with the compenet BOX. It allows you to add
- * a refresh button to the box. It converts the box's state to a loading state.
- * 
- * USAGE:
- *  $("#box-widget").boxRefresh( options );
- * */
-(function($) {
-    "use strict";
-
-    $.fn.boxRefresh = function(options) {
-
-        // Render options
-        var settings = $.extend({
-            //Refressh button selector
-            trigger: ".refresh-btn",
-            //File source to be loaded (e.g: ajax/src.php)
-            source: "",
-            //Callbacks
-            onLoadStart: function(box) {
-            }, //Right after the button has been clicked
-            onLoadDone: function(box) {
-            } //When the source has been loaded
-
-        }, options);
-
-        //The overlay
-        var overlay = $('<div class="overlay"></div><div class="loading-img"></div>');
-
-        return this.each(function() {
-            //if a source is specified
-            if (settings.source === "") {
-                if (console) {
-                    console.log("Please specify a source first - boxRefresh()");
-                }
-                return;
-            }
-            //the box
-            var box = $(this);
-            //the button
-            var rBtn = box.find(settings.trigger).first();
-
-            //On trigger click
-            rBtn.click(function(e) {
-                e.preventDefault();
-                //Add loading overlay
-                start(box);
-
-                //Perform ajax call
-                box.find(".box-body").load(settings.source, function() {
-                    done(box);
-                });
-
-
-            });
-
-        });
-
-        function start(box) {
-            //Add overlay and loading img
-            box.append(overlay);
-
-            settings.onLoadStart.call(box);
-        }
-
-        function done(box) {
-            //Remove overlay and loading img
-            box.find(overlay).remove();
-
-            settings.onLoadDone.call(box);
-        }
-
-    };
-
-})(jQuery);
+//
+///* 
+// * BOX REFRESH BUTTON 
+// * ------------------
+// * This is a custom plugin to use with the compenet BOX. It allows you to add
+// * a refresh button to the box. It converts the box's state to a loading state.
+// * 
+// * USAGE:
+// *  $("#box-widget").boxRefresh( options );
+// * */
+//(function($) {
+//    "use strict";
+//
+//    $.fn.boxRefresh = function(options) {
+//
+//        // Render options
+//        var settings = $.extend({
+//            //Refressh button selector
+//            trigger: ".refresh-btn",
+//            //File source to be loaded (e.g: ajax/src.php)
+//            source: "",
+//            //Callbacks
+//            onLoadStart: function(box) {
+//            }, //Right after the button has been clicked
+//            onLoadDone: function(box) {
+//            } //When the source has been loaded
+//
+//        }, options);
+//
+//        //The overlay
+//        var overlay = $('<div class="overlay"></div><div class="loading-img"></div>');
+//
+//        return this.each(function() {
+//            //if a source is specified
+//            if (settings.source === "") {
+//                if (console) {
+//                    console.log("Please specify a source first - boxRefresh()");
+//                }
+//                return;
+//            }
+//            //the box
+//            var box = $(this);
+//            //the button
+//            var rBtn = box.find(settings.trigger).first();
+//
+//            //On trigger click
+//            rBtn.click(function(e) {
+//                e.preventDefault();
+//                //Add loading overlay
+//                start(box);
+//
+//                //Perform ajax call
+//                box.find(".box-body").load(settings.source, function() {
+//                    done(box);
+//                });
+//
+//
+//            });
+//
+//        });
+//
+//        function start(box) {
+//            //Add overlay and loading img
+//            box.append(overlay);
+//
+//            settings.onLoadStart.call(box);
+//        }
+//
+//        function done(box) {
+//            //Remove overlay and loading img
+//            box.find(overlay).remove();
+//
+//            settings.onLoadDone.call(box);
+//        }
+//
+//    };
+//
+//})(jQuery);
 
 /*
  * SIDEBAR MENU
@@ -625,41 +625,41 @@ $(window).load(function() {
 
 }(jQuery));
 
-/*
- * TODO LIST CUSTOM PLUGIN
- * -----------------------
- * This plugin depends on iCheck plugin for checkbox and radio inputs
- */
-(function($) {
-    "use strict";
-
-    $.fn.todolist = function(options) {
-        // Render options
-        var settings = $.extend({
-            //When the user checks the input
-            onCheck: function(ele) {
-            },
-            //When the user unchecks the input
-            onUncheck: function(ele) {
-            }
-        }, options);
-
-        return this.each(function() {
-            $('input', this).on('ifChecked', function(event) {
-                var ele = $(this).parents("li").first();
-                ele.toggleClass("done");
-                settings.onCheck.call(ele);
-            });
-
-            $('input', this).on('ifUnchecked', function(event) {
-                var ele = $(this).parents("li").first();
-                ele.toggleClass("done");
-                settings.onUncheck.call(ele);
-            });
-        });
-    };
-
-}(jQuery));
+///*
+// * TODO LIST CUSTOM PLUGIN
+// * -----------------------
+// * This plugin depends on iCheck plugin for checkbox and radio inputs
+// */
+//(function($) {
+//    "use strict";
+//
+//    $.fn.todolist = function(options) {
+//        // Render options
+//        var settings = $.extend({
+//            //When the user checks the input
+//            onCheck: function(ele) {
+//            },
+//            //When the user unchecks the input
+//            onUncheck: function(ele) {
+//            }
+//        }, options);
+//
+//        return this.each(function() {
+//            $('input', this).on('ifChecked', function(event) {
+//                var ele = $(this).parents("li").first();
+//                ele.toggleClass("done");
+//                settings.onCheck.call(ele);
+//            });
+//
+//            $('input', this).on('ifUnchecked', function(event) {
+//                var ele = $(this).parents("li").first();
+//                ele.toggleClass("done");
+//                settings.onUncheck.call(ele);
+//            });
+//        });
+//    };
+//
+//}(jQuery));
 
 /* CENTER ELEMENTS */
 (function($) {
@@ -678,71 +678,71 @@ $(window).load(function() {
         return this;
     }
 }(jQuery));
-
-/*
- * jQuery resize event - v1.1 - 3/14/2010
- * http://benalman.com/projects/jquery-resize-plugin/
- * 
- * Copyright (c) 2010 "Cowboy" Ben Alman
- * Dual licensed under the MIT and GPL licenses.
- * http://benalman.com/about/license/
- */
-(function($, h, c) {
-    var a = $([]), e = $.resize = $.extend($.resize, {}), i, k = "setTimeout", j = "resize", d = j + "-special-event", b = "delay", f = "throttleWindow";
-    e[b] = 250;
-    e[f] = true;
-    $.event.special[j] = {setup: function() {
-            if (!e[f] && this[k]) {
-                return false;
-            }
-            var l = $(this);
-            a = a.add(l);
-            $.data(this, d, {w: l.width(), h: l.height()});
-            if (a.length === 1) {
-                g();
-            }
-        }, teardown: function() {
-            if (!e[f] && this[k]) {
-                return false
-            }
-            var l = $(this);
-            a = a.not(l);
-            l.removeData(d);
-            if (!a.length) {
-                clearTimeout(i);
-            }
-        }, add: function(l) {
-            if (!e[f] && this[k]) {
-                return false
-            }
-            var n;
-            function m(s, o, p) {
-                var q = $(this), r = $.data(this, d);
-                r.w = o !== c ? o : q.width();
-                r.h = p !== c ? p : q.height();
-                n.apply(this, arguments)
-            }
-            if ($.isFunction(l)) {
-                n = l;
-                return m
-            } else {
-                n = l.handler;
-                l.handler = m
-            }
-        }};
-    function g() {
-        i = h[k](function() {
-            a.each(function() {
-                var n = $(this), m = n.width(), l = n.height(), o = $.data(this, d);
-                if (m !== o.w || l !== o.h) {
-                    n.trigger(j, [o.w = m, o.h = l])
-                }
-            });
-            g()
-        }, e[b])
-    }}
-)(jQuery, this);
-
+//
+///*
+// * jQuery resize event - v1.1 - 3/14/2010
+// * http://benalman.com/projects/jquery-resize-plugin/
+// * 
+// * Copyright (c) 2010 "Cowboy" Ben Alman
+// * Dual licensed under the MIT and GPL licenses.
+// * http://benalman.com/about/license/
+// */
+//(function($, h, c) {
+//    var a = $([]), e = $.resize = $.extend($.resize, {}), i, k = "setTimeout", j = "resize", d = j + "-special-event", b = "delay", f = "throttleWindow";
+//    e[b] = 250;
+//    e[f] = true;
+//    $.event.special[j] = {setup: function() {
+//            if (!e[f] && this[k]) {
+//                return false;
+//            }
+//            var l = $(this);
+//            a = a.add(l);
+//            $.data(this, d, {w: l.width(), h: l.height()});
+//            if (a.length === 1) {
+//                g();
+//            }
+//        }, teardown: function() {
+//            if (!e[f] && this[k]) {
+//                return false
+//            }
+//            var l = $(this);
+//            a = a.not(l);
+//            l.removeData(d);
+//            if (!a.length) {
+//                clearTimeout(i);
+//            }
+//        }, add: function(l) {
+//            if (!e[f] && this[k]) {
+//                return false
+//            }
+//            var n;
+//            function m(s, o, p) {
+//                var q = $(this), r = $.data(this, d);
+//                r.w = o !== c ? o : q.width();
+//                r.h = p !== c ? p : q.height();
+//                n.apply(this, arguments)
+//            }
+//            if ($.isFunction(l)) {
+//                n = l;
+//                return m
+//            } else {
+//                n = l.handler;
+//                l.handler = m
+//            }
+//        }};
+//    function g() {
+//        i = h[k](function() {
+//            a.each(function() {
+//                var n = $(this), m = n.width(), l = n.height(), o = $.data(this, d);
+//                if (m !== o.w || l !== o.h) {
+//                    n.trigger(j, [o.w = m, o.h = l])
+//                }
+//            });
+//            g()
+//        }, e[b])
+//    }}
+//)(jQuery, this);
+//
 /*!
  * SlimScroll https://github.com/rochal/jQuery-slimScroll
  * =======================================================

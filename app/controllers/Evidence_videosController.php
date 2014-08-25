@@ -29,7 +29,7 @@ class Evidence_videosController extends BaseController {
         $evidence->save();
         Case_evidencesController::addCaseEvidence($evidence->case_id, "Video", $evidence->id);
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, Auth::user()->id . " uploaded new video to ".$evidence->case_id ,"evidence_videos");
+        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, "has uploaded new video to ".$evidence->case_id ,"evidence_videos");
 
         return Redirect::back();
     }
@@ -56,7 +56,7 @@ class Evidence_videosController extends BaseController {
         $evidence->save();
         
        $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, Auth::user()->id . " updated new video ".$evidence->id." from ".$evidence->case_id ,"evidence_videos");
+        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, "has updated new video ".$evidence->id." of case ".$evidence->case_id ,"evidence_videos");
 
         
         return Redirect::back();
@@ -65,7 +65,7 @@ class Evidence_videosController extends BaseController {
     public function postDestroy($id = null) {
         $evidence = Evidence_video::find($id);
         $chief = User::where("division", "=", Auth::user()->division)->where("job_title", "=", "Chief")->first();
-        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, Auth::user()->id . " deleted video ".$evidence->id." from ".$evidence->case_id ,"evidence_videos");
+        System_logsController::createLog($chief->id, $evidence->case_id, $evidence->id, "has deleted video ".$evidence->id." of case ".$evidence->case_id ,"evidence_videos");
         $evidence->delete();
         return Redirect::back();
     }

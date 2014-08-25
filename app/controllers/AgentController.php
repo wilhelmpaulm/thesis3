@@ -25,8 +25,8 @@ class AgentController extends BaseController {
     }
 
     public function getIndex() {
-        return View::make("content.test");
-//        return Redirect::to("agent/dashboard");
+//        return View::make("content.test");
+        return Redirect::to("agent/dashboard");
     }
 
     public function getDashboard($num = NULL) {
