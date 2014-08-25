@@ -47,8 +47,8 @@
     </div>
     <?php
     $suspects = DB::select("select * from complaint_subjects join clients on "
-                                            . "complaint_subjects.client_id = clients.id where complaint_subjects.complaint_id = ?", [$complaint->id]);
-                         $case_type_tags = Complaint_type_tag::where("complaint_id", "=", $complaint->id)->get();
+                    . "complaint_subjects.client_id = clients.id where complaint_subjects.complaint_id = ?", [$complaint->id]);
+    $case_type_tags = Complaint_type_tag::where("complaint_id", "=", $complaint->id)->get();
     $case_name_x = "";
     foreach ($suspects as $s) {
         $case_name_x .= $s->first_name . " " . $s->last_name;
@@ -59,14 +59,14 @@
 
     $case_name_x .=" - ";
     foreach ($case_type_tags as $ctt) {
-        $case_name_x .= $ctt->type."";
+        $case_name_x .= $ctt->type . "";
         if (end($case_type_tags) != $ctt) {
             $case_name_x .= " ";
         } else {
-
+            
         }
     }
-            $case_name_x .= " Case";
+    $case_name_x .= " Case";
     ?>
 
 
@@ -118,16 +118,27 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group ">
-                                <label for="img_signature">Signature Photo</label>
-                                <input type="file" id="img_signature" name="img_signature">
-                                <p class="help-block">Please upload a clear image. Click <span id="upload" class="c-red">here</span> to make a new signature image.</p>
+                                <label for="img_signature">Signature </label>
+                                <canvas id="colors_sketch" style="width: 100%; height: 100%; zoom: 115%" class="bg-gray"></canvas>
+                                <script type="text/javascript">
+                                    $(function() {
+                                        $.each([3, 5, 10, 15], function() {
+                                            $('#colors_demo .tools').append("<a href='#colors_sketch' data-size='" + this + "' style='background: #ccc'>" + this + "</a> ");
+                                        });
+                                        $('#colors_sketch').sketch();
+                                    });
+                                </script>
+
+                                <!--< id="lol">lol</a>-->
+                                <input  id="papa" type="hidden" name="img_signature" value="">
+
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group hidden">
-                                <label for="img_right_thumb">Right Thumb Photo</label>
+                            <div class="form-group">
+                                <label for="img_right_thumb">Sworn Statement</label>
                                 <input type="file" id="img_right_thumb" name="img_right_thumb">
-                                <p class="help-block">Please upload a clear image.</p>
+                                <p class="help-block"></p>
                             </div>
                         </div>
                     </div>
@@ -145,16 +156,25 @@
     </div>
 </div>
 
+<script>
+//    $("#lol").on("click", function() {
+//        canvas = $("#colors_sketch")[0];
+//        var pngUrl = canvas.toDataURL();
+//        $("#papa").val(pngUrl);
+//        console.log(pngUrl);
+//    });
+
+</script>
 
 
 
 <script>
     $('#upload').click(function() {
-//        $.post('{{URL::to("complaints/signature/".$complaint->id)}}', {img_signature: $('#simple_sketch').get(0).toDataURL("image/png"), lol:"boom"}, function(data) {
-//            alert(data);
-//        });
+        //        $.post('{{URL::to("complaints/signature/".$complaint->id)}}', {img_signature: $('#simple_sketch').get(0).toDataURL("image/png"), lol:"boom"}, function(data) {
+        //            alert(data);
+        //        });
         window.open('{{URL::to("complaints/signature/".$complaint->id)}}', "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=500, left=500, width=400, height=400");
-//        window.open($('#simple_sketch').get(0).toDataURL());
+        //        window.open($('#simple_sketch').get(0).toDataURL());
     });
 
     $('a').on("click", function() {
@@ -171,5 +191,14 @@
             $("#pg-add").removeClass("progress-bar-success");
         }
     });
+
+    $("form").submit(function() {
+        canvas = $("#colors_sketch")[0];
+        var pngUrl = canvas.toDataURL();
+        $("#papa").val(pngUrl);
+        console.log(pngUrl);
+        
+    });
+
 
 </script>

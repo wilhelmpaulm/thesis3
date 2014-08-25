@@ -264,6 +264,7 @@ $rhs = DB::select("select * from resource_histories  where resource_histories.us
                         <th>Date Due</th>
                         <th>Date Returned</th>
                         <th>Case</th>
+                        <th colspan="2">Amount</th>
                         <th>Reason</th>
                     </tr>
                 </thead>
@@ -281,6 +282,18 @@ $rhs = DB::select("select * from resource_histories  where resource_histories.us
                         <td>{{$rh->date_due}}</td>
                         <td>{{$rh->date_returned}}</td>
                         <td >{{$rh->case_id}}</td>
+                        @if($rh->img_picture != "")
+                                <td>{{$rh->amount}}</td>
+                                <td>
+                                    <span class="btn-group btn-group-xs ">
+                                        <a class="btn btn-primary"  href="{{URL::asset("/nbi/resources/pictures/".$rh->img_picture)}}"><i class="fa fa-download"></i></a>
+                                    </span>
+                                </td>
+
+                                @else
+                                <td colspan="2">{{$rh->amount}}</td>
+
+                                @endif
                         <td><p><small>{{$rh->details}}</small></p></td>
                     </tr>
                     @endforeach

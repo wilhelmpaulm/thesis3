@@ -277,7 +277,7 @@
         </div>
         <div class="modal-body">
             <div class="row">
-                
+
                 <div class="col-md-8">
 
                     <p>{{$r->details}}</p>
@@ -292,7 +292,7 @@
                         <thead>
                             <tr>
                                 <th>Borrowed by</th>
-                                <th>Amount</th>
+                                <th colspan="2">Amount</th>
                                 <th>Status</th>
                                 <th>Date Requested</th>
                                 <th>Date Due</th>
@@ -300,10 +300,21 @@
                         </thead>
                         <tbody>
                             @foreach($history as $h)
-                           <?php $u = User::find($h->user_id)?>
+                            <?php $u = User::find($h->user_id) ?>
                             <tr>
                                 <td>{{$u->last_name.", ".$u->first_name}}</td>
+                                @if($h->img_picture != "")
                                 <td>{{$h->amount}}</td>
+                                <td>
+                                    <span class="btn-group btn-group-xs ">
+                                        <a class="btn btn-primary"  href="{{URL::asset("/nbi/resources/pictures/".$h->img_picture)}}"><i class="fa fa-download"></i></a>
+                                    </span>
+                                </td>
+
+                                @else
+                                <td colspan="2">{{$h->amount}}</td>
+
+                                @endif
                                 <td>{{$h->status}}</td>
                                 <td>{{$h->date_requested}}</td>
                                 <td>{{$h->date_due}}</td>
@@ -314,7 +325,7 @@
 
                 </div>
                 <div class="col-md-4">
-                    <form method="POST" action="{{URL::to('resource_histories/request')}}">
+                    <form method="POST" action="{{URL::to('resource_histories/request')}}" enctype="multipart/form-data">
                         <div class="form-group ">
                             <input type="hidden" name="resource_id" value="{{$r->id}}">
                             <label >Case</label>
@@ -329,8 +340,15 @@
                             <input class="form-control" type="date" value="" name="date_due">
                             <label >Details</label>
                             <textarea name="details" class="form-control" rows="4" cols="20"></textarea>
+                            <!--<span class="c-alizarin">* For receipts please add receipt number</span>--> 
+                            <br>
                             <label >Amount</label>
                             <input class="form-control" min="1" max="{{$r->amount}}"  type="number" value="1" name="amount">
+                            @if($r->category == "Money")
+                            <br>
+                            <label >Receipt picture</label>
+                            <input type="file" name="img_picture" value="" />
+                            @endif
                         </div>
                 </div>
 

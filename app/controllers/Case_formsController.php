@@ -25,6 +25,7 @@ class Case_formsController extends BaseController {
     public function postUpdate($id = null) {
         if (Hash::check(Input::get("password"), Auth::user()->password)) {
             $key = Case_form::find($id);
+            $key->reason = Input::get("reson");
             $key->status = Input::get("status");
             $key->save();
             System_logsController::createLog(Auth::user()->id, $key->case_id, $key->id, Auth::user()->id . " updated form status of " . $key->case_id . " to " . Input::get("status"), "case_keys");

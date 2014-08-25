@@ -94,5 +94,34 @@
 
     </div>
     <div class="tab-pane" id="sub">...</div>
-    <div class="tab-pane" id="search">...</div>
+    <div class="tab-pane c-white" id="search">
+        <form action="{{URL::to('search')}}" method="post">
+            <label>Table</label>
+            <select name="table" class="form-control">
+                <option value="all">All</option>
+                <option value="evidence_documents">Documents</option>
+                <option value="evidence_pictures">Pictures</option>
+                <option value="evidence_videos">Videos</option>
+                <option value="evidence_objects">Objects</option>
+                <option value="evidence_recordings">Recordings</option>
+                <option value="kases">Cases</option>
+                <option value="case_observations">Findings</option>
+            </select>
+            <label>Date</label>
+            <select name="ton" class="form-control">
+                <option value="on">ON</option>
+                <option value="off">OFF</option>
+            </select>
+            
+            
+            <label>Start Date</label>
+            <input class="form-control" type="date" name="" value="date_start" />
+            <label>End Date</label>
+            <input class="form-control" type="date" name="" value="date_end" />
+           <br>
+            <span class="btn-group btn-group-sm pull-right">
+            <button class="btn btn-primary">Submit</button>
+            </span>
+        </form>
+    </div>
 </div>

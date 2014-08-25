@@ -100,6 +100,9 @@ class MainController extends BaseController {
     public function getAlertsTasks() {
         return View::make("alerts.tasks");
     }
+    public function postSearch() {
+        return View::make("base.search");
+    }
 
     public function getNotificationsNum() {
         $num = 0;

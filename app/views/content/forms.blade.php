@@ -9,11 +9,12 @@
         <table class="table table-hover table-striped table-condensed">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Added by</th>
                     <th>Form ID</th>
+                    <th>Added by</th>
+                    <th>Addressed to</th>
                     <th>Form Type</th>
                     <th>Status</th>
+                    <th>Reason</th>
                     
                     <th></th>
                 </tr>
@@ -23,9 +24,17 @@
                   <?php $au = User::find($a->agent_id);?>
 
                 <tr class="text-center">
-                    <td>{{$a->id}}</td>
+                    <td>
+                        {{$a->form_id}}
+                    </td>
                     <td>{{$au->last_name.", ".$au->first_name}}</td>
-                    <td>{{$a->form_id}}</td>
+                    <td>
+                         
+                        @if($a->form_type == "Subpoena")
+                        <?php $f = Form_subpoena::find($a->id)?>
+                            {{$f->time}}
+                        @endif
+                    </td>
                     <td>{{$a->form_type}}</td>
                     <td>@if($a->status == "Pending")<p class="label label-warning">
                     @elseif($a->status == "Denied")<p class="label label-danger">
@@ -34,6 +43,7 @@
                         
                             {{$a->status}}</p>
                     </td>
+                    <td>{{$a->reason}}</td>
                     @if($a->form_type == "Subpoena")
                     <td>
                         <span class="btn-group btn-group-sm ">
@@ -99,6 +109,8 @@
                 <option>Denied</option>
                 <option>Pending</option>
             </select>
+            <label>Reason</label>
+            <textarea class="form-control" name="reason" rows="4" cols="20"></textarea>
         </div>
         <div class="modal-footer">
             <div class="btn-group btn-group-sm pull-right">
@@ -111,3 +123,4 @@
 </div>
 
 @endforeach
+

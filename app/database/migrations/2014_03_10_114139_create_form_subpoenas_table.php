@@ -20,6 +20,7 @@ class CreateFormSubpoenasTable extends Migration {
             $table->string('date_requested');
             $table->string('date_signed');
             $table->string('chief')->nullable();
+            $table->string('for')->nullable();
             $table->string('status')->nullable()->default("pending");
             $table->timestamps();
         });

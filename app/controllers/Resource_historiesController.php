@@ -25,6 +25,11 @@ class Resource_historiesController extends BaseController {
                     "date_due" => Input::get("date_due"),
                     "details" => Input::get("details"),
         ]);
+         if (Input::hasFile('img_picture')) {
+            Input::file('img_picture')->move(public_path() . "/nbi/resources/pictures", "" . $history->id . "." . Input::file('img_picture')->getClientOriginalExtension());
+            $history->img_picture = "" . $history->id . "." . Input::file('img_picture')->getClientOriginalExtension();
+        }
+        $history->save();
         $rs = Resource::find($history->resource_id);
         
         $chief = User::where("division", "=", $rs->division)->where("job_title", "=", "Chief")->first();
@@ -33,6 +38,14 @@ class Resource_historiesController extends BaseController {
         return Redirect::back();
     }
 
+    public function postReject() {
+        $rh = Resource_history::find(Input::get("id"));
+        $rh->status = "Disapproved";
+        $rh->reason = Input::get("reason");
+        $rh->save();
+        
+        return Redirect::back();
+    }
     public function postApprove() {
         $ri = Input::get("request_id");
         $rg = Input::get("request_group");

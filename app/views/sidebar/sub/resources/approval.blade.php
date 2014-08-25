@@ -342,9 +342,9 @@ $rhs_copy = $rhs->toArray();
                                             <th>Date Requested</th>
 
                                             <th>Date Due</th>
-                                            <th width="5%">Amount</th>
+                                            <th width="5%" colspan="2">Amount</th>
                                             <th width="5%">Available</th>
-                                            <th width="5%" >Choice</th>
+                                            <th width="5%" colspan="2">Choice</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -393,6 +393,7 @@ $rhs_copy = $rhs->toArray();
                                         @if($date1 ==0 && $date2 ==0)
                                         <tr>
                                     <input type="hidden" class="form-control" name="request_group[]" value="{{$rh['id']}}">
+                                    
                                     <td class="text-center">{{$rh['id']}}</td>
                                     <td class="text-center">{{$rh['case_id']}}</td>
                                     <?php $c = Kase::find($rh['case_id']) ?>
@@ -418,12 +419,30 @@ $rhs_copy = $rhs->toArray();
                                     <td class="text-center">{{$u->last_name.", ".$u->first_name}}</td>
                                     <td class="text-center">{{$rh['date_requested']}}</td>
                                     <td class="text-center">{{$rh['date_due']}}</td>
-                                    <td class="text-center">{{$rh['amount']}}</td>
+                                   @if($rh['img_picture'] != "")
+                                <td>{{$rh['amount']}}</td>
+                                <td>
+                                    <span class="btn-group btn-group-xs ">
+                                        <a class="btn btn-primary"  href="{{URL::asset("/nbi/resources/pictures/".$rh['img_picture'])}}"><i class="fa fa-download"></i></a>
+                                    </span>
+                                </td>
+
+                                @else
+                                <td colspan="2">{{$rh['amount']}}</td>
+
+                                @endif
                                     <td class="text-center">{{$amount_taken}}</td>
                                     <td class="text-center">
                                         @if($rh['amount'] <= $amount_taken)
                                         <input type="radio" class="" name="request_id" value="{{$rh['id']}}">
                                         @endif
+                                    </td>
+                                     <td class="text-center">
+                                        <span class="btn-group btn-group-xs">
+                                            <button class="btn btn-danger" data-toggle="modal" data-target="#dis_{{$rh['id']}}">
+                                                reject
+                                            </button>
+                                        </span>
                                     </td>
 
                                     <?php
@@ -463,13 +482,27 @@ $rhs_copy = $rhs->toArray();
                                     <td class="text-center">{{$u->last_name.", ".$u->first_name}}</td>
                                     <td class="text-center">{{$rh['date_requested']}}</td>
                                     <td class="text-center">{{$rh['date_due']}}</td>
-                                    <td class="text-center">{{$rh['amount']}}</td>
+                                    <td class="text-center">  
+                                        @if($rh['img_picture'] != "")
+                                         <span class="btn-group btn-group-xs ">
+                                        <a class="btn btn-primary"  href="{{URL::asset("/nbi/resources/pictures/".$rh['img_picture'])}}"><i class="fa fa-download"></i></a>
+                                    </span>
+                                        |
+                                        @endif
+                                        {{$rh['amount']}}</td>
                                     <td class="text-center">{{$amount_taken}}</td>
                                     <td class="text-center">
 
                                         @if($rh['amount'] <= $amount_taken)
                                         <input type="radio" class="" name="request_id" value="{{$rh['id']}}">
                                         @endif
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="btn-group btn-group-xs">
+                                            <button class="btn btn-danger" data-toggle="modal" data-target="#dis_{{$rh['id']}}">
+                                                reject
+                                            </button>
+                                        </span>
                                     </td>
                                     <?php
                                     if ($date1 > $d1temp) {
@@ -510,14 +543,15 @@ $rhs_copy = $rhs->toArray();
                                     <td class="text-center">Date Range of Approved</td>
                                     <td class="text-center">{{Time::toDate($date1)}}</td>
                                     <td class="text-center">{{Time::toDate($date2)}}</td>
-                                    <td colspan="2"></td>
+                                    <td colspan="3"></td>
                                     <!--<td></td>-->
                                     <td class="text-center">
-
-                                        <span class="btn-group btn-group-sm pull-right">
+                                        
+                                        <span class="btn-group btn-group-xs pull-right">
                                             <button class="btn btn-primary">Approve</button>
                                         </span>
                                     </td>
+                                    <td ></td>
                                     </tfoot>
                                 </table>
                             </form>
@@ -544,7 +578,30 @@ $rhs_copy = $rhs->toArray();
 @endif
 @endforeach
 
-
+@foreach($rhs as $rrr)
+<div class="modal fade" id="dis_{{$rrr->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Reject Request</h4>
+      </div>
+      <div class="modal-body">
+          <form action="{{URL::to("resource_histories/reject")}}" method="POST">
+              <input type="hidden" value="{{$rrr->id}}">
+              <label>Reason for rejection</label>
+              <textarea name="reason" rows="4" cols="20" class="form-control"></textarea>
+          </form>
+          
+      </div>
+      <div class="modal-footer">
+          <span class="btn-group btn-group-sm">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+          </span>
+      </div>
+    </div>
+</div>
+@endforeach
 
 
 

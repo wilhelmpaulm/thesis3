@@ -11,9 +11,24 @@ foreach ($case_type_tags as $ctt) {
     array_push($ctags, $ctt->type);
 }
 ?>
+<?php $ax = User::find($case->agent_id)?>
 <?php $typetags = Case_type::all(); ?>
 
 <div id="content">
+     @if($ax->status != "Active" && $case->status == "Ongoing")
+        <div class=" text-center">
+            <hr>
+            <p class="lead">{{$ax->first_name}} {{$ax->last_name}} the current assigned agents is {{$ax->status}}</p>
+            @if(Auth::user()->job_title == "Agent" || Auth::user()->job_title == "Secretary")
+            <p class="lead">Please request division chief for case reassignment.</p>
+            @else
+            <p class="lead">Please assign a new agent for the case.</p>
+            @endif
+            <hr>
+        </div>
+        @endif
+    
+    
     <div class="navbar navbar-default ">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -26,7 +41,7 @@ foreach ($case_type_tags as $ctt) {
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#details" data-toggle="tab">Case No. {{$case->id}}</a></li>
-                <li class=""><a href="#observations" data-toggle="tab">Observations</a></li>
+                <li class=""><a href="#observations" data-toggle="tab">Findings</a></li>
                 <li><a href="#res" data-toggle="tab">Resources</a></li>
 
                 <li class="dropdown">
@@ -58,7 +73,7 @@ foreach ($case_type_tags as $ctt) {
                 </li>
 
             </ul>
-
+            
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> <b class="caret"></b></a>
@@ -71,10 +86,12 @@ foreach ($case_type_tags as $ctt) {
                         @if($case->status == "Pending" && ("Chief" == Auth::user()->job_title|| "Executive_Officer" == Auth::user()->job_title))
                         <li><a href="#" data-toggle="modal" data-target="#caseSet">Set Case</a></li>
                         @endif
-                        @if($case->status == "Ongoing" && $case->agent_id == Auth::user()->id)
+                        
+                        
+                        @if($case->status == "Ongoing" && ("Chief" == Auth::user()->job_title|| "Executive_Officer" == Auth::user()->job_title))
                         <li><a href="#" data-toggle="modal" data-target="#caseClose">Close Case</a></li>
                         @endif
-                        @if($case->status != "Ongoing" && ("Chief" == Auth::user()->job_title|| "Executive_Officer" == Auth::user()->job_title))
+                        @if($case->status != "Ongoing" && ("Chief" == Auth::user()->job_title|| "Executive_Officer" == Auth::user()->job_title) && $ax->status == "Active")
                         <li><a href="#" data-toggle="modal" data-target="#caseReopen">Reopen Case</a></li>
                         @endif
                         @if(Auth::user()->job_title == "Chief" || Auth::user()->job_title == "Executive_Officer")
@@ -200,9 +217,22 @@ foreach ($case_type_tags as $ctt) {
 
                                     <tr>
                                         <td><strong>Narration</strong></td>
-                                        <td>{{$complaint->narration}}</td>
+                                        <td>
+                                            @if($complaint->narration != "")
+                                            {{$complaint->narration}}
+                                            @if($complaint->img_signature != "")
+                                            <br>
+                                            <br>
+                                            <br>
+                                             <img src="{{asset('nbi/complaints/signature/'.$complaint->img_signature)}}" style="width: 50%;" class="pull-right"  alt="signature"/>
+                                            @endif
+                                            
+                                            @else
+                                            
+                                            @endif
+                                        </td>
                                     </tr>
-                                    <tr>
+<!--                                    <tr>
                                         <td><strong>Considerations</strong></td>
                                         <td>{{$complaint->considerations}}</td>
                                     </tr>
@@ -213,7 +243,7 @@ foreach ($case_type_tags as $ctt) {
                                     <tr>
                                         <td><strong>Agency Reported Details</strong></td>
                                         <td>{{$complaint->agency_report_details}}</td>
-                                    </tr>
+                                    </tr>-->
                                 </tbody>
                             </table>
 
@@ -720,12 +750,12 @@ foreach ($case_type_tags as $ctt) {
             <div class="modal-body">
                 <label>Password</label>
                 <input class="form-control" name="password" type="password">
-                <label>Reason for closing</label>
-                <textarea class="form-control" name="reason" rows="4" cols="20"></textarea>
                 <label>Status</label>
                 <select class="form-control" name="status">
                     <option>Non-viable</option>
                 </select>
+                <label>Reason for closing</label>
+                <textarea class="form-control" name="reason" rows="4" cols="20"></textarea>
             </div>
             <div class="modal-footer">
                 <span class="btn-group btn-group-sm pull-right">
@@ -746,14 +776,14 @@ foreach ($case_type_tags as $ctt) {
             <div class="modal-body">
                 <label>Password</label>
                 <input class="form-control" name="password" type="password">
-                <label>Reason for closing</label>
-                <textarea class="form-control" name="reason" rows="4" cols="20"></textarea>
                 <label>Status</label>
                 <select class="form-control" name="status">
                     <option>Non-viable</option>
                     <option>Closed_Unfinished</option>
                     <option>Closed_Finished</option>
                 </select>
+                <label>Reason for closing</label>
+                <textarea class="form-control" name="reason" rows="4" cols="20"></textarea>
             </div>
             <div class="modal-footer">
                 <span class="btn-group btn-group-sm pull-right">
@@ -771,6 +801,7 @@ foreach ($case_type_tags as $ctt) {
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" id="myModalLabel">Reopen Case</h4>
         </div>
+       
         <?php $aaa = User::find($case->agent_id); ?>
         @if($aaa->status != "Active")
         <div class=" text-center">
@@ -846,6 +877,15 @@ foreach ($case_type_tags as $ctt) {
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" id="myModalLabel">Reassign Case</h4>
         </div>
+        <?php $aaa = User::find($case->agent_id); ?>
+        @if($aaa->status != "Active")
+        <div class=" text-center">
+            <hr>
+            <p class="lead">The current assigned agents is {{$aaa->status}}</p>
+            <p class="lead">Please assign a new agent for the case.</p>
+            <hr>
+        </div>
+        @endif
         <form action="{{URL::to("cases/reassign/".$case->id)}}" method="post">
             <div class="modal-body">
                 <label>Password</label>

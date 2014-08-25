@@ -22,8 +22,10 @@ class CreateResourceHistoriesTable extends Migration {
             $table->string('date_requested');
             $table->string('date_approved')->nullable();
             $table->string('date_due')->nullable();
+            $table->string('reason')->nullable();
             $table->string('date_issued')->nullable();
             $table->string('date_returned')->nullable();
+            $table->string('img_picture')->nullable();
             $table->timestamps();
         });
     }

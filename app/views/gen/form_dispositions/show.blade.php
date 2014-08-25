@@ -101,9 +101,11 @@ $case_form = Case_form::where("form_type", "=", "Disposition")->where("form_id",
                             </td>
                             <td style=" border: #000; border-style: double" >
                                 <h4>Date Assigned</h4>
-                                {{$case->date_assigned}}
+                                {{substr($case->created_at, 10)}}
                                 <h4>Date Reported</h4>
                                 {{$case->date_reported}}
+                                <h4>Date Closed</h4>
+                                {{$case->date_closed}}
 
                             </td>
                             <td style=" border: #000; border-style: double" >
@@ -146,17 +148,17 @@ $case_form = Case_form::where("form_type", "=", "Disposition")->where("form_id",
                 <p class="indent">{{$d->coc}}</p>
                 <br>
                 <br>
-                <h4> C.	NAMES AND PERSONAL CIRCUMSTANCES OF PRINCIPALS (SUBJECT/VICTIM)</h4>
+                <h4> B.	NAMES AND PERSONAL CIRCUMSTANCES OF PRINCIPALS (SUBJECT/VICTIM)</h4>
                 <br>
                 <p class="indent">{{$d->ma}}</p>
                 <br>
                 <br>
-                <h4>  D. MATERIAL FACTS ESTABLISHED BY THE EVIDENCE GATHERED</h4>
+                <h4>  C. MATERIAL FACTS ESTABLISHED BY THE EVIDENCE GATHERED</h4>
                 <br>
                 <p class="indent">{{$d->cop}}</p>
                 <br>
                 <br>
-                <h4>  G. RECOMMENDATIONS</h4>
+                <h4>  D. RECOMMENDATIONS</h4>
                 <br>
                 <p class="indent">{{$d->recommendations}}</p>
                 <br>

@@ -189,10 +189,10 @@ class ComplaintsController extends BaseController {
 //        $complaint = Complaint::find($id);
         $data = [
 //            "complaint" => $complaint
-            
         ];
         return View::make("gen.complaints.signature", $data);
     }
+
     public function postSignature($id = null) {
         $c = Complaint::find($id);
         if (Input::hasFile('img_signature')) {
@@ -205,6 +205,16 @@ class ComplaintsController extends BaseController {
     }
 
     public function postStoreChief($id = null) {
+        define('UPLOAD_DIR', public_path() . "/nbi/complaints/signature/");
+        $img = $_POST['img_signature'];
+        $img = str_replace('data:image/png;base64,', '', $img);
+        $img = str_replace(' ', '+', $img);
+        $data = base64_decode($img);
+
+        //	return $data;
+        //print $success ? $file : 'Unable to save the file.';
+
+
         $c = Complaint::find($id);
         $c->name = Input::get("complaint_name");
         $c->agency_reported = Input::get("agency_reported");
@@ -215,10 +225,12 @@ class ComplaintsController extends BaseController {
         $c->narration = Input::get("narration");
         $c->status = "Completed";
         $c->save();
-        if (Input::hasFile('img_signature')) {
+        if (Input::get('img_signature')) {
 
-            Input::file('img_signature')->move(public_path() . "/nbi/complaints/signature", "" . $c->id . "." . Input::file('img_signature')->getClientOriginalExtension());
-            $c->img_signature = "" . $c->id . "." . Input::file('img_signature')->getClientOriginalExtension();
+//            Input::file('img_signature')->move(public_path() . "/nbi/complaints/signature", "" . $c->id . "." . Input::file('img_signature')->getClientOriginalExtension());
+            $file = UPLOAD_DIR . $c->id . '.png';
+            $success = file_put_contents($file, $data);
+            $c->img_signature = "" . $c->id . ".png";
             $c->save();
         }
         if (Input::hasFile('img_right_thumb')) {

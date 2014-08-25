@@ -26,6 +26,7 @@ $user = Auth::user();
 
             }
         </style>
+         {{HTML::style("sig/jquery.signaturepad.css")}}
         {{HTML::style("LTE/css/font-awesome.min.css")}}
         {{HTML::style("LTE/css/ionicons.min.css")}}
         {{HTML::style("css/bootstrap-datetimepicker.css")}}
@@ -81,6 +82,8 @@ $user = Auth::user();
         {{HTML::script("js/highcharts/modules/exporting.js")}}
         {{HTML::script("js/d3.v3.js")}}
         {{HTML::script("js/nv.d3.js")}}
+        {{HTML::script("js/signaturepad.min.js")}}
+        {{HTML::script("sig/json2.min.js")}}
         <!--<link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css" />-->
         <!-- font Awesome -->
         <!--<link href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css" />-->
@@ -156,7 +159,7 @@ $user = Auth::user();
                                 <i class="fa fa-pencil"></i>
                                 <!--<span class="label label-warning">10</span>-->
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu long-down">
                                 <li class="header">Notepad</li>
                                 <li>
                                     <form action="{{URL::to(strtolower(Auth::user()->job_title).'/memo')}}" method="POST">
@@ -165,7 +168,11 @@ $user = Auth::user();
                                             <br>
                                         </div>
                                 </li>
-                                <button class="btn btn-primary btn-block">Save Changes</button>
+                                <li class="footer">
+                                    <a ><button class="btn-link">Save Changes</button></a>
+                                </li>
+                                
+                                <!--<button class="btn btn-primary btn-block">Save Changes</button>-->
                                 </form> 
                             </ul>
                         </li>

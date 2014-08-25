@@ -94,7 +94,7 @@
                                 <div class="panel-heading clearfix">
                                     <!--<span class=""><i class="fa fa-group"></i> Victims if any </span>-->
                                     <span class="btn-group btn-group-sm pull-right">
-                                        <button type="button"  id="add_victim_btn" class="pull-right btn btn-success "><i class="fa fa-plus"></i></button>
+                                        <button type="button"  id="add_victim_btn" class="pull-right btn btn-success "><i class="fa fa-plus"></i> Add Victim</button>
                                     </span>
                                 </div>
                                 <div class="panel-body" id="add_victim_panel">
@@ -118,7 +118,7 @@
                                 <div class="panel-heading clearfix">
                                     <!--<span class=""><i class="fa fa-chain"></i> Persons Complained Against or Suspects</span>-->
                                     <span class="btn-group btn-group-sm pull-right">
-                                        <button type="button" id="add_subject_btn" class="pull-right btn btn-success"><i class="fa fa-plus"></i></button>
+                                        <button type="button" id="add_subject_btn" class="pull-right btn btn-success"><i class="fa fa-plus"></i> Add Subject</button>
                                     </span>
                                 </div>
                                 <div class="panel-body" id="add_subject_panel">
@@ -160,7 +160,7 @@
                                     <div class="col-md-6">
                                         <label><span class="c-red">*</span>Case Type Tag</label>
                                         <select  name="type[]" class="selectpicker form-control " multiple data-live-search="true" multiple data-selected-text-format="count">
-                                            <?php $cts = Case_type::orderBy("type", "asc")->get();?>
+                                            <?php $cts = Case_type::orderBy("type", "asc")->get(); ?>
                                             @foreach($cts as $ct)
                                             <option value="{{$ct->type}}">{{$ct->type}}</option>
                                             @endforeach
@@ -191,7 +191,7 @@
         <div class="panel ">
             <div class="panel-heading clearfix">
                 <span class="btn-group btn-group-sm pull-right">
-                    <button type="button" class="remove btn btn-danger pull-right"><i class="fa fa-trash-o"></i></button>
+                    <button type="button" class="remove btn btn-danger pull-right"><i class="fa fa-trash-o"></i> remove</button>
                 </span>
             </div>
             <div class="panel-body" id="">
@@ -206,7 +206,7 @@
         <div class="panel ">
             <div class="panel-heading clearfix">
                 <span class="btn-group btn-group-sm pull-right">
-                    <button  type="button" class="remove btn btn-danger pull-right"><i class="fa fa-trash-o"></i></button>
+                    <button  type="button" class="remove btn btn-danger pull-right"><i class="fa fa-trash-o"></i> remove</button>
                 </span>
             </div>
             <div class="panel-body" id="">
@@ -219,18 +219,18 @@
     </div>
 
 
-<!--    <div id="add_type_tags_body">
-        <div class="panel ">
-            <div class="panel-heading clearfix">
-                <span class="btn-group btn-group-sm pull-right">
-                    <button  type="button" class="remove btn btn-danger pull-right"><i class="fa fa-trash-o"></i></button>
-                </span>
+    <!--    <div id="add_type_tags_body">
+            <div class="panel ">
+                <div class="panel-heading clearfix">
+                    <span class="btn-group btn-group-sm pull-right">
+                        <button  type="button" class="remove btn btn-danger pull-right"><i class="fa fa-trash-o"></i></button>
+                    </span>
+                </div>
+                <div class="panel-body" id="">
+                    @include("gen.complaint_type_tags.create")
+                </div>
             </div>
-            <div class="panel-body" id="">
-                @include("gen.complaint_type_tags.create")
-            </div>
-        </div>
-    </div>-->
+        </div>-->
 
 
 
@@ -293,5 +293,11 @@
         $(this).parent().parent().parent().remove();
     });
 
-    
+
+    var body = $("#add_victim_body").html();
+    $("#add_victim_panel").append(body);
+    var body = $("#add_subject_body").html();
+    $("#add_subject_panel").append(body);
+
+
 </script>

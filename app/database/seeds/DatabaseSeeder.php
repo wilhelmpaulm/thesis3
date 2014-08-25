@@ -68,6 +68,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('Disposition_anexxesTableSeeder');
 		$this->call('Form_transmitalsTableSeeder');
 		$this->call('Transmital_anexxesTableSeeder');
+		$this->call('System_logsTableSeeder');
 //		$this->call('Form_casesTableSeeder');
 	}
 

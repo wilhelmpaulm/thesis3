@@ -32,6 +32,7 @@
         {{HTML::style("css/nv.d3.css")}}
         {{HTML::style("css/printer.css")}}
         {{HTML::style("css/wilhelm-panel.css")}}
+        {{HTML::style("sig/jquery.signaturepad.css")}}
 
 
 
@@ -60,6 +61,8 @@
         {{HTML::script("js/highcharts/modules/data.js")}}
         {{HTML::script("js/highcharts/modules/exporting.js")}}
         {{HTML::script("js/ColumnFilterWidgets.js")}}
+        {{HTML::script("js/signaturepad.min.js")}}
+        {{HTML::script("sig/json2.min.js")}}
 
         <style>
 

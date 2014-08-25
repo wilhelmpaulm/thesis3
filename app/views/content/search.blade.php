@@ -1,4 +1,18 @@
- <?php $tags = Tag::all(); ?>
+<?php
+$table = Input::get("table");
+$ton = Input::get("ton");
+$date_start = Input::get("date_start");
+$date_end = Input::get("date_end");
+if ($table == "all") {
+    $tags = Tag::all();
+} else {
+    if($ton == "on"){
+    $tags = Tag::where("table", "=", $table)->where("created_at", "<", $date_end)->where("created_at", ">", $date_start)->get();
+    }else{
+    $tags = Tag::where("table", "=", $table)->get();
+    }
+}
+?>
 <div class="panel panel-black">
     <!--    <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-suitcase"></i> Cross References</h3>
@@ -21,57 +35,57 @@
         </div>
         <div style="max-height: 450px; overflow-y:auto">
 
-           
+
             <ul class="list list-unstyled    ">
                 @foreach($tags as $t)
                 <li>
                     <a data-toggle="modal" data-target="#tag_{{$t->id}}" class="list-group-item c_link">
                         @if($t->table == "case_observations")
-                        <?php $i = Case_observation::find($t->reference_id); ?>
+<?php $i = Case_observation::find($t->reference_id); ?>
                         <h4 class="list-group-item-heading list_name ">{{$i->observation}}</h4>
                         <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
                         @foreach(explode(",", $t->tags) as $ts)
                         <p class="list-group-item-text list_tags label label-info">{{$ts}}</p>
                         @endforeach
                         @elseif($t->table == "kases")
-                        <?php $i = Kase::find($t->reference_id); ?>
-                        
+<?php $i = Kase::find($t->reference_id); ?>
+
                         <h4 class="list-group-item-heading list_name ">{{$i->name}}</h4>
                         <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
                         @foreach(explode(",", $t->tags) as $ts)
                         <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
-                       
+
                         @endforeach
                         @elseif($t->table == "evidence_objects")
-                        <?php $i = Evidence_object::find($t->reference_id); ?>
+<?php $i = Evidence_object::find($t->reference_id); ?>
                         <h4 class="list-group-item-heading list_name ">{{$i->details}}</h4>
                         <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
                         @foreach(explode(",", $t->tags) as $ts)
                         <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
                         @endforeach
                         @elseif($t->table == "evidence_pictures")
-                        <?php $i = Evidence_picture::find($t->reference_id); ?>
+<?php $i = Evidence_picture::find($t->reference_id); ?>
                         <h4 class="list-group-item-heading list_name ">{{$i->details}}</h4>
                         <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
                         @foreach(explode(",", $t->tags) as $ts)
                         <p class="list-group-item-text list_tags label label-info">{{$ts}}</p>
                         @endforeach
                         @elseif($t->table == "evidence_recordings")
-                        <?php $i = Evidence_picture::find($t->reference_id); ?>
+<?php $i = Evidence_picture::find($t->reference_id); ?>
                         <h4 class="list-group-item-heading list_name ">{{$i->details}}</h4>
                         <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
                         @foreach(explode(",", $t->tags) as $ts)
                         <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
                         @endforeach
                         @elseif($t->table == "evidence_documents")
-                        <?php $i = Evidence_document::find($t->reference_id); ?>
+<?php $i = Evidence_document::find($t->reference_id); ?>
                         <h4 class="list-group-item-heading list_name ">{{$i->details}}</h4>
                         <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
-                       @foreach(explode(",", $t->tags) as $ts)
+                        @foreach(explode(",", $t->tags) as $ts)
                         <p class="list-group-item-text list_tags label label-info">{{$ts}}</p>
                         @endforeach
                         @elseif($t->table == "evidence_videos")
-                        <?php $i = Evidence_video::find($t->reference_id); ?>
+<?php $i = Evidence_video::find($t->reference_id); ?>
                         <h4 class="list-group-item-heading list_name ">{{$i->details}}</h4>
                         <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
                         @foreach(explode(",", $t->tags) as $ts)
@@ -80,7 +94,7 @@
                         @else
                         <h4 class="list-group-item-heading list_name ">{{$t->reference_id}}</h4>
                         <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
-                       @foreach(explode(",", $t->tags) as $ts)
+                        @foreach(explode(",", $t->tags) as $ts)
                         <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
                         @endforeach
                         @endif
@@ -114,81 +128,81 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" id="myModalLabel"></h4>
-             
+
         </div>
 
         <form action="{{URL::to("cross_references/store")}}" method="POST">
             <input class="cross_reference_id" type="hidden" name="reference_id" value="">
-            <input type="hidden" name="case_id" value="{{$case_id}}">
+            <input type="hidden" name="case_id" value="">
             <input class="cross_table" type="hidden" name="table" value="">
             <input type="hidden" name="tags_id" value="{{$t->id}}">
             <div class="modal-body">
                 @if($t->table == "case_observations")
-                
 
-                <?php $i = Case_observation::find($t->reference_id); ?>
+
+<?php $i = Case_observation::find($t->reference_id); ?>
                 <h4 class="list-group-item-heading list_name ">{{$i->observation}}</h4>
                 <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
                 @foreach(explode(",", $t->tags) as $ts)
-                        <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
-                        @endforeach
+                <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
+                @endforeach
                 @elseif($t->table == "kases")
-                <?php $i = Kase::find($t->reference_id); ?>
-                
+<?php $i = Kase::find($t->reference_id); ?>
+
                 <h4 class="list-group-item-heading list_name ">{{$i->name}}</h4>
                 <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
                 @foreach(explode(",", $t->tags) as $ts)
-                        <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
-                        @endforeach
-                      
+                <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
+                @endforeach
+
                 @elseif($t->table == "evidence_objects")
-                <?php $i = Evidence_object::find($t->reference_id); ?>
+<?php $i = Evidence_object::find($t->reference_id); ?>
                 <h4 class="list-group-item-heading list_name ">{{$i->details}}</h4>
                 <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
                 @foreach(explode(",", $t->tags) as $ts)
-                        <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
-                        @endforeach
+                <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
+                @endforeach
                 @elseif($t->table == "evidence_pictures")
-                <?php $i = Evidence_picture::find($t->reference_id); ?>
+<?php $i = Evidence_picture::find($t->reference_id); ?>
                 <h4 class="list-group-item-heading list_name ">{{$i->details}}</h4>
                 <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
                 @foreach(explode(",", $t->tags) as $ts)
-                        <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
-                        @endforeach
+                <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
+                @endforeach
                 @elseif($t->table == "evidence_recordings")
-                <?php $i = Evidence_picture::find($t->reference_id); ?>
+<?php $i = Evidence_picture::find($t->reference_id); ?>
                 <h4 class="list-group-item-heading list_name ">{{$i->details}}</h4>
                 <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
-               @foreach(explode(",", $t->tags) as $ts)
-                        <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
-                        @endforeach
+                @foreach(explode(",", $t->tags) as $ts)
+                <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
+                @endforeach
                 @elseif($t->table == "evidence_documents")
-                <?php $i = Evidence_document::find($t->reference_id); ?>
+<?php $i = Evidence_document::find($t->reference_id); ?>
                 <h4 class="list-group-item-heading list_name ">{{$i->details}}</h4>
                 <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
-               @foreach(explode(",", $t->tags) as $ts)
-                        <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
-                        @endforeach
+                @foreach(explode(",", $t->tags) as $ts)
+                <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
+                @endforeach
                 @elseif($t->table == "evidence_videos")
-                <?php $i = Evidence_video::find($t->reference_id); ?>
+<?php $i = Evidence_video::find($t->reference_id); ?>
                 <h4 class="list-group-item-heading list_name ">{{$i->details}}</h4>
                 <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
-               @foreach(explode(",", $t->tags) as $ts)
-                        <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
-                        @endforeach
+                @foreach(explode(",", $t->tags) as $ts)
+                <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
+                @endforeach
                 @else
                 <h4 class="list-group-item-heading list_name ">{{$t->reference_id}}</h4>
                 <p class="list_created_at label label-default"><i class="fa fa-calendar"></i> {{$t->created_at}}</p>
-               @foreach(explode(",", $t->tags) as $ts)
-                        <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
-                        @endforeach
+                @foreach(explode(",", $t->tags) as $ts)
+                <p class="list-group-item-text list_tags label label-info"> {{$ts}}</p>
+                @endforeach
                 @endif
 
             </div>
             <div class="modal-footer">
                 <span class="btn-group btn-group-sm">
 
-                    <button type="" class="btn btn-primary">Save changes</button>
+                    <!--<button type="" class="btn btn-primary">Save changes</button>-->
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </span>
             </div>

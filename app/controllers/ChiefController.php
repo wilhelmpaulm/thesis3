@@ -3,9 +3,17 @@
 class ChiefController extends BaseController {
 
     public function postValidate() {
-
-
-        var_dump($_POST);
+// requires php5
+	define('UPLOAD_DIR', 'D:\\');
+	$img = $_POST['img_signature'];
+	$img = str_replace('data:image/png;base64,', '', $img);
+	$img = str_replace(' ', '+', $img);
+	$data = base64_decode($img);
+	$file = UPLOAD_DIR . uniqid() . '.png';
+	$success = file_put_contents($file, $data);
+//	return $data;
+        print $success ? $file : 'Unable to save the file.';
+        //var_dump($_POST);
     }
 
     public function postMemo() {

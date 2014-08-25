@@ -19,6 +19,7 @@ class CreateCaseFormsTable extends Migration {
 			$table->integer('form_id');
 			$table->string('form_type');
 			$table->string('division')->nullable();
+			$table->string('reason')->nullable();
 			$table->string('status')->default("Pending");
 			$table->timestamps();
 		});

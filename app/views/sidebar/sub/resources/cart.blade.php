@@ -76,7 +76,7 @@
                         <thead>
                             <tr>
                                 <th>Borrowed by</th>
-                                <th>Amount</th>
+                                <th colspan="2">Amount</th>
                                 <th>Status</th>
                                 <th>Date Requested</th>
                                 <th>Date Due</th>
@@ -87,7 +87,18 @@
                             <?php $u = User::find($h->user_id)?>
                             <tr>
                                 <td>{{$u->last_name.", ".$u->first_name}}</td>
+                                @if($h->img_picture != "")
                                 <td>{{$h->amount}}</td>
+                                <td>
+                                    <span class="btn-group btn-group-xs ">
+                                        <a class="btn btn-primary"  href="{{URL::asset("/nbi/resources/pictures/".$h->img_picture)}}"><i class="fa fa-download"></i></a>
+                                    </span>
+                                </td>
+
+                                @else
+                                <td colspan="2">{{$h->amount}}</td>
+
+                                @endif
                                 <td>{{$h->status}}</td>
                                 <td>{{$h->date_requested}}</td>
                                 <td>{{$h->date_due}}</td>

@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>All Case_observations</h1>
+<h1>All Case_Findings</h1>
 
 <p>{{ link_to_route('case_observations.create', 'Add new case_observation') }}</p>
 

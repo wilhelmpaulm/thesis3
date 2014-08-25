@@ -7,7 +7,7 @@ $isUnread = "";
 
 $count = 0; //count($notifications); 
 foreach($notifications2 as $xx){
-    if(!$xx->status == "read"){
+    if($xx->status == "unread"){
         $count++;
     }
 }
@@ -41,7 +41,12 @@ foreach($notifications2 as $xx){
              @else
             <li class="" style=""><!-- start message -->
              @endif
-                <a href="#" class="">
+             
+             @if($n->case_id != "0")
+                <a href="{{URL::to(''.strtolower(Auth::user()->job_title).'/cases-ongoing/'.$n->case_id)}}" class="">
+              @else 
+                    <a href="#" class="">
+               @endif     
                     <div class="pull-left">
                         <img src="{{asset('nbi/agent/picture/'.$a->file_picture)}}" class="img-circle" alt="User Image"/>
                     </div>
