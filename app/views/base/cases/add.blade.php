@@ -6,9 +6,11 @@
 </div>-->
 
 @if(Auth::user()->job_title != "Chief" )
+<div class="row content">
 <div class="col-md-12">
     @include("gen.complaints.create")
 </div>
+    </div>
 @else
 
 <div id="sidebarsubhtml" class="hide">
@@ -17,13 +19,14 @@
 
 
 
-
+<div class="row content">
 <div class="col-md-12">
     @if($complaint != null)
     @include("gen.complaints.create_chief")
     @endif
 
 </div>
+    </div>
 @endif
 
 

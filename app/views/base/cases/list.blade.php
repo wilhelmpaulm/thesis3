@@ -7,7 +7,8 @@ $aCom = [];
 
 
 
-<div class="col-md-12 content ">
+    <div class="row content">
+<div class="col-md-12  ">
 
     <div class="row">
         <div class="col-md-12">
@@ -18,6 +19,7 @@ $aCom = [];
        
     </div>
 </div>
+    </div>
 
 
 

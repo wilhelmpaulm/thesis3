@@ -18,7 +18,10 @@ $aCom = [];
     $("#subheading").text("Assign Case");
 
 </script>
-<div class="col-md-12 content">
+
+<div class="row content">
+    
+<div class="col-md-12">
 
     <div class="row">
         @if($case == null )

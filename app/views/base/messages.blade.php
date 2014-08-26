@@ -8,6 +8,7 @@
 
 
 
+    <div class="row content">
 <div class="col-md-12">
     <div id="content">
         @if($message != null)
@@ -15,6 +16,7 @@
         @endif
     </div>
 </div>
+    </div>
 
 
 <script >

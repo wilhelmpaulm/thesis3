@@ -136,7 +136,7 @@ $user = Auth::user();
         {{HTML::script("js/dtable3.js")}}
         {{HTML::script("js/fullcalendar.js")}}
         {{HTML::script("js/bootstrap.min.js")}}
-
+{{HTML::script("LTE/js/AdminLTE/app.js")}}
         <!--{{HTML::script("js/bootstrap.min.js")}}-->
         {{HTML::script("js/bootstrap-modalmanager.js")}}
         {{HTML::script("js/bootstrap-modal.js")}}
@@ -403,6 +403,6 @@ $user = Auth::user();
 
         </script>
    
-        {{HTML::script("LTE/js/AdminLTE/app.js")}}
+        
     </body>
 </html>

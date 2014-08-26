@@ -1,7 +1,7 @@
 @extends("layouts.new")
 
 @section("main")
-
+<div class="row content">
 <div class="col-md-12">
 
     <div class="row">
@@ -9,6 +9,7 @@
             @include("gen.form_coordinations.create")
         </div>
 
+    </div>
 
     </div>
 </div>

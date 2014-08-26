@@ -18,6 +18,8 @@
 </script>
 
 @if($id != null)
+
+    <div class="row content">
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-8">
@@ -29,6 +31,7 @@
         </div>
     </div>
 </div>
+    </div>
 @endif
 
 
