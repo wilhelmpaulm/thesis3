@@ -1,7 +1,18 @@
 
 <div class="panel panel-black">
-    <div class="panel-heading">
+    <div class="panel-heading clearfix">
         <h3 class="panel-title"> Complaint Sheet</h3>
+        <span class="btn-group btn-group-sm pull-right">
+                    <button class="btn  btn-primary pop" type="button"
+                            data-container="body" data-toggle="popover" 
+                            data-placement="left" title="Complaint Sheet"
+                            data-content="This is used for recording the various details of the persons involved 
+                            in the complaint such as the complainant, victim/s and the subjects of the complaint.
+                            Also the complaint information is recorded.
+                            ">
+                        <i class="fa fa-info"></i> 
+                    </button>
+                </span>
     </div>
     <div class="panel-body">
         <div id="">
@@ -301,3 +312,4 @@
 
 
 </script>
+ <script > $('.pop').popover();</script>

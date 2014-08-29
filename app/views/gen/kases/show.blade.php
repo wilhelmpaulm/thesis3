@@ -57,8 +57,8 @@ foreach ($case_type_tags as $ctt) {
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clients <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#victims" data-toggle="tab">Victims</a></li>
-                        <li><a href="#subjects" data-toggle="tab">Subjects</a></li>
+                        <li><a href="#victims2" data-toggle="tab">Victims</a></li>
+                        <li><a href="#subjects2" data-toggle="tab">Subjects</a></li>
                         <li><a href="#keys" data-toggle="tab">Generated Keys</a></li>
                         <li><a href="#requests" data-toggle="tab">Case Requirements</a></li>
                     </ul>
@@ -674,10 +674,10 @@ foreach ($case_type_tags as $ctt) {
         @include("gen.evidence_objects.show")
     </div>
 
-    <div class="tab-pane" id="victims">
+    <div class="tab-pane" id="victims2">
         @include("gen.case_victims.show")
     </div>
-    <div class="tab-pane" id="subjects">
+    <div class="tab-pane" id="subjects2">
         @include("gen.case_subjects.show")
     </div>
     <div class="tab-pane" id="timeline">
@@ -1168,5 +1168,5 @@ $case_id = $case->id;
     </div>
 </div>
 
-
 @endforeach
+<script > $('.pop').popover();</script>

@@ -2,6 +2,17 @@
     <div class="panel-heading clearfix">
         <p class="pull-left"><i class="fa fa-key"></i> Case Keys</p>
         <span class="btn-group btn-group-sm pull-right">
+            <button class="btn  btn-primary pop" type="button"
+                    data-container="body" data-toggle="popover" 
+                    data-placement="left" title="Case Keys"
+                    data-content="Unique keys provided to users outside NBI for them to access
+                    the case requirements requested of them.
+                    functions: 
+                    - Add new key
+                    - Change key status
+                    ">
+                <i class="fa fa-info"></i> 
+            </button>
              @if($case->agent_id == Auth::user()->id && $case->status == "Ongoing")
             <button class="btn  btn-success pull-right" type="button" data-toggle="modal" data-target="#addCaseKey">
                 <i class="fa fa-plus"></i> 

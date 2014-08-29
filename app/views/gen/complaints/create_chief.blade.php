@@ -1,6 +1,17 @@
 <div class="panel panel-black">
-    <div class="panel-heading">
+    <div class="panel-heading clearfix">
         <h3 class="panel-title"> Complaint Sheet</h3>
+        <span class="btn-group btn-group-sm pull-right">
+                    <button class="btn  btn-primary pop" type="button"
+                            data-container="body" data-toggle="popover" 
+                            data-placement="left" title="Complaint Sheet"
+                            data-content="This is the function used by either the chief or the executive officer for continuing complaints created by the agents or secretary..
+                           
+                            ">
+                        <i class="fa fa-info"></i> 
+                    </button>
+                </span>
+      
     </div>
     <div class="panel-body">
         <ul class="nav nav-pills nav-justified">
@@ -35,8 +46,21 @@
 
     <div class="tab-pane   active" id="tab1">
         <div class="panel panel-black">
-            <div class="panel-heading">
+            <div class="panel-heading clearfix">
                 <h3 class="panel-title">Complaint Details</h3>
+                <span class="btn-group btn-group-sm pull-right">
+                    <button class="btn  btn-primary pop" type="button"
+                            data-container="body" data-toggle="popover" 
+                            data-placement="left" title="Persons involved"
+                            data-content="Persons involved in the case.
+                            functions: 
+                            - Complainant
+                            - Complaint Victims
+                            - Complaint Subjects
+                            ">
+                        <i class="fa fa-info"></i> 
+                    </button>
+                </span>
             </div>
             <div class="panel-body">
                 @include("gen.complaints.details")
@@ -76,8 +100,22 @@
     <!--END OF TAB 3-->
     <div class="tab-pane fade" id="tab2">
         <div class="panel panel-black">
-            <div class="panel-heading">
+            <div class="panel-heading clearfix">
                 <h3 class="panel-title">Sworn Statement</h3>
+                <span class="btn-group btn-group-sm pull-right">
+                    <button class="btn  btn-primary pop" type="button"
+                            data-container="body" data-toggle="popover" 
+                            data-placement="left" title="Sworn Statement"
+                            data-content="The formal statementy of the complainant regards to the complaint. 
+                            Here he or she iterates an or types the narriation of the incident. After which a signature is required for confirmation. A file may also be submitted in case the narration or statement has been made beforehand.
+                            functions: 
+                            - Narration of Facts
+                            - Signature of Proof
+                            - Upload Document
+                            ">
+                        <i class="fa fa-info"></i> 
+                    </button>
+                </span>
             </div>
             <div class="panel-body">
                 <form role="form" action="{{URL::to('complaints/store-chief/'.$complaint->id)}}" method="post" enctype="multipart/form-data">
@@ -197,8 +235,9 @@
         var pngUrl = canvas.toDataURL();
         $("#papa").val(pngUrl);
         console.log(pngUrl);
-        
-    });
 
+    });
+    
 
 </script>
+  <script > $('.pop').popover();</script>

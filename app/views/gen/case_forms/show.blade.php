@@ -1,6 +1,18 @@
 <div class="panel panel-black">
-    <div class="panel-heading">
+    <div class="panel-heading clearfix">
         <h3 class="panel-title">Case Forms</h3>
+        <span class="btn-group btn-group-sm pull-right">
+            <button class="btn  btn-primary pop" type="button"
+                    data-container="body" data-toggle="popover" 
+                    data-placement="left" title="Case Forms"
+                    data-content="Contains various forms related to the case.
+                    functions: 
+                    - View Case forms
+                    ">
+                <i class="fa fa-info"></i> 
+            </button>
+        </span>
+        
     </div>
     <div class="panel-body">
 

@@ -2,6 +2,17 @@
     <div class="panel-heading clearfix">
         <p class="pull-left"><i class="fa fa-users"></i>Case Victims</p>
         <span class="btn-group btn-group-sm pull-right">
+            <button class="btn  btn-primary pop" type="button"
+                    data-container="body" data-toggle="popover" 
+                    data-placement="left" title="Case Victims"
+                    data-content="Persons in question which are potential suspects of the case.
+                    functions: 
+                    - View Case Victims
+                    - Add New Case Victim
+                    - Edit Case Victim
+                    ">
+                <i class="fa fa-info"></i> 
+            </button>
              @if($case->agent_id == Auth::user()->id && $case->status == "Ongoing")
             <button class="btn  btn-success pull-right" type="button" data-toggle="modal" data-target="#addCaseVictim">
                 <i class="fa fa-plus"></i> 

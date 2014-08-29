@@ -278,6 +278,9 @@ $user = Auth::user();
                                     <div class="pull-left">
                                         <!--<a href="#" class="btn btn-default btn-flat">Profile</a>-->
                                     </div>
+                                    <div class="pull-left btn-group-sm">
+                                        <a class="btn btn-default"  href="{{URL::asset("nbi/um.pdf")}}"><i class="fa fa-download"></i> User's Manual</a>
+                                    </div>
                                     <div class="pull-right btn-group-sm">
                                         <a href="{{URL::to("logout")}}" class="btn btn-default">Log out</a>
                                     </div>

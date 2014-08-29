@@ -126,6 +126,7 @@
                                 <th>Status</th>
                                 <th>Date Requested</th>
                                 <th>Date Due</th>
+                                <th>Reason</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -148,6 +149,7 @@
                                 <td>{{$h->status}}</td>
                                 <td>{{$h->date_requested}}</td>
                                 <td>{{$h->date_due}}</td>
+                                <td>{{$h->reason}}</td>
                             </tr>
                             @endforeach
                         </tbody>

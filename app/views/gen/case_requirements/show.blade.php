@@ -2,6 +2,19 @@
     <div class="panel-heading clearfix">
         <p class="pull-left"><i class="fa fa-clipboard"></i> Case Requirements</p>
         <span class="btn-group btn-group-sm pull-right">
+            <button class="btn  btn-primary pop" type="button"
+                    data-container="body" data-toggle="popover" 
+                    data-placement="left" title="Case Requirements"
+                    data-content="Listed here are the case requirements requested from
+                    various pople involved int the case. You may also request other 
+                    requirements via the add function.
+                    
+                    functions: 
+                    - Add new requirement
+                    - Monitor care requirements status
+                    ">
+                <i class="fa fa-info"></i> 
+            </button>
             @if($case->agent_id == Auth::user()->id && $case->status == "Ongoing")
             <button class="btn  btn-success pull-right" type="button" data-toggle="modal" data-target="#addCaseRequirement">
                 <i class="fa fa-plus"></i> 
@@ -242,6 +255,8 @@ $coll = [
         $(this).parent().parent().parent().remove();
     });
 
+
+   
 </script>
 
 <!--PICTURE-->
